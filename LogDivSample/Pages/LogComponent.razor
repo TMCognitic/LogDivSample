@@ -1,0 +1,40 @@
+﻿@if(Items is not null && Items.Count > 0)
+{
+    <div class="logs">
+        <label>Infos</label>
+        <div class="content">
+            <ul>
+                @foreach (Message item in Items)
+                {
+                    <li class="@(item.Error ? "error" : "message")">@item.Content</li>
+                }
+            </ul>
+        </div>                    
+    </div>
+}
+
+@code {
+    [Inject]
+    private LogMessenger LogMessenger { get; set; } = null!;
+
+    private ObservableCollection<Message> Items { get; set; } = new ObservableCollection<Message>();
+
+    protected override void OnInitialized()
+    {
+        Items.CollectionChanged += OnCollectionChanged;
+        LogMessenger.NewMessageSended += OnNewMessageSended;
+    }
+
+    public async void OnNewMessageSended(Message message)
+    {
+        Items.Add(message);
+
+        await Task.Delay(message.Duree * 1000);
+        Items.Remove(message);
+    }
+
+    private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+}

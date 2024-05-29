@@ -1,0 +1,33 @@
+﻿.logs {
+    align-self: center;
+    width: 400px;
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    border: 1px dotted black;    
+}
+
+ul {
+    position: relative;
+    top: -12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+label {
+    position: relative;
+    top: -12px;
+    left: 20px;
+    background-color: white;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+}
+
+.message
+{
+    color:green;
+}
+
+.error {
+    color: red;
+}
